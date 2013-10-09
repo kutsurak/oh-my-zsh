@@ -43,12 +43,29 @@ else
     rvm_ruby='%{$PR_RED%}‹$(rbenv version | sed -e "s/ (set.*$//")›%{$PR_NO_COLOR%}'
   fi
 fi
-local git_branch='$(git_prompt_info)%{$PR_NO_COLOR%}'
 
-#PROMPT="${user_host} ${current_dir} ${rvm_ruby} ${git_branch}$PR_PROMPT "
-PROMPT="╭─${user_host} ${current_dir} ${rvm_ruby} ${git_branch}
-╰─$PR_PROMPT "
+ZSH_THEME_GIT_PROMPT_DIRTY=""
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
+ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[blue]%} ✹"
+ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖"
+ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
+ZSH_THEME_GIT_PROMPT_STASHED="$PR_BOLD$PR_RED ⚠"
+ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="$PR_BOLD$PR_RED ⇊"
+ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="$PR_BOLD$PR_RED ⇈"
+ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$PR_BOLD$PR_RED ⇅"
+
+
+local git_branch='$(git_prompt_info)$(git_prompt_status)$(git_remote_status)%{$PR_NO_COLOR%}'
+
+#PROMPT="${user_host} ${current_dir}${rvm_ruby}${git_branch}$PR_PROMPT "
+PROMPT="╭─${user_host} ${current_dir}${rvm_ruby}${git_branch}
+╰─($PR_YELLOW%D{%d-%m-%Y %T} $PR_CYAN%!$PR_NO_COLOR)$PR_PROMPT "
 RPS1="${return_code}"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$PR_YELLOW%}‹"
-ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$PR_NO_COLOR%}"
+ZSH_THEME_GIT_PROMPT_PREFIX=" on $PR_BOLD$PR_GREEN"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$PR_NO_COLOR%}"
+#ZSH_THEME_GIT_PROMPT_PREFIX="%{$PR_YELLOW%}‹"
+#ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$PR_NO_COLOR%}"
