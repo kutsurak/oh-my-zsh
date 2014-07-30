@@ -48,7 +48,7 @@ if [[ $use_sudo -eq 1 ]]; then
     alias adg='sudo $apt_pref update && sudo $apt_pref upgrade'
     alias adu='sudo $apt_pref update && sudo $apt_pref dist-upgrade'
     alias afu='sudo apt-file update'
-    alias ag='sudo $apt_pref upgrade'
+    #alias ag='sudo $apt_pref upgrade'
     alias ai='sudo $apt_pref install'
     # Install all packages given on the command line while using only the first word of each line:
     # acs ... | ail
